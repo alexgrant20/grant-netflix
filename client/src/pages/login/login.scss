@@ -6,7 +6,7 @@
       rgba(0, 0, 0, 0) 0%,
       rgba(0, 0, 0, 1) 100%
     ),
-    url("http://mppmduse2pmpovwapp.azurewebsites.net/wp-content/uploads/2019/09/netflix-background-9.jpg");
+    url("https://assets.nflxext.com/ffe/siteui/vlv3/a1a5d7dc-aedf-4570-b58d-693af16e1445/13a76a0d-0dc6-416a-9bb2-4495f4d15fb1/ID-en-20211020-popsignuptwoweeks-perspective_alpha_website_large.jpg");
   background-size: cover;
   position: relative;
 
@@ -36,29 +36,81 @@
     color: white;
 
     form {
-      width: 300px;
-      height: 300px;
-      padding: 30px;
+      width: 24vw;
+      min-width: 500px;
+      min-height: 75vh;
+      max-height: 660px;
+      padding: 60px 90px 100px;
       border-radius: 5px;
-      background-color: var(--main-color);
+      background-color: rgba(0,0,0,.75);
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
+      // justify-content: space-around;
 
-      input {
-        height: 40px;
-        border-radius: 5px;
-        background-color: gray;
-        color: white;
-        padding-left: 10px;
+      h1{
+        margin-bottom: 40px;
+      }
+    
+      .formControl{
+        height: auto;
+        width: 100%;
+        position: relative;
+        margin-bottom: 10px;
 
-        &::placeholder {
-          color: lightgray;
+        p{
+          color: #EB7C03;
+          font-weight: 400;
+          font-size: 13px;
+          margin: 5px 0;
+        } 
+
+        input {
+          height: 50px;
+          width: 100%;
+          border: 1px solid #222;
+          border-radius: 4px;
+          background-color: #333333;
+          color: white;
+          padding: 0 20px;
+          padding-top: 7px;
+          outline: none;
+
+          &:focus{
+            background-color: #555;
+            +label{
+              font-size: 12px;
+              top: 6px;
+            }
+          }
+
+          &:not(:placeholder-shown){
+            +label{
+              font-size: 12px;
+              top: 6px;
+            }
+          }
         }
+
+        label{
+          position: absolute;
+          left: 20px;
+          top: 15px;
+          pointer-events: none;
+          color: #ccc;
+          transition: all .2s ease;
+          // bottom: 0;
+        }
+
+        &.invalid{
+          input{
+            border-bottom:2px solid #EB7C03;
+          }
+        }
+
       }
 
       button {
-        height: 40px;
+        height: 50px;
         border-radius: 5px;
         background-color: red;
         color: white;
@@ -66,6 +118,44 @@
         font-size: 18px;
         font-weight: 500;
         cursor: pointer;
+        margin: 30px 0 10px;
+      }
+
+      .sideAction{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        color: #B3B3B3;
+        margin-bottom: 40px;
+
+        .checkboxInput{
+          display: flex;
+          align-items: center;
+        }
+
+        input{
+          width: 18px;
+          height: 21px;
+          margin-right: 5px;
+        }
+      }
+
+      .sideLogin{
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 13px;
+      
+
+        img{
+          width: 20px;
+          margin-right: 10px;
+        }
+
+        span{
+          color: #737373;
+        }
       }
 
       span {
@@ -73,6 +163,11 @@
         b {
           color: white;
         }
+      }
+
+      small{
+        color: #8c8c8c;
+        margin-top: 20px;
       }
     }
   }
