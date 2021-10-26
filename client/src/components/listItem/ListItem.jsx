@@ -4,6 +4,8 @@ import {
   Add,
   ThumbUpAltOutlined,
   ThumbDownOutlined,
+  ArrowDownwardOutlined,
+  KeyboardArrowDown,
 } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -12,14 +14,31 @@ import { Link } from "react-router-dom";
 export default function ListItem({ index, item }) {
   const [isHovered, setIsHovered] = useState(false);
   const [movie, setMovie] = useState({});
+  const [showMovieInfo, setShowMovieInfo] = useState(false);
+  const [videoState, setVideoState] = useState(0);
 
+  let movieShowTimeout;
+  
+  useEffect(() => {
+    console.log(isHovered)
+    if(isHovered){
+      movieShowTimeout = setTimeout(() => {
+        setShowMovieInfo(true)
+      }, 500)
+    } else{
+      clearTimeout(movieShowTimeout)
+      setShowMovieInfo(false)
+    }
+    return(() => clearTimeout(movieShowTimeout))
+  }, [isHovered])
+  
   useEffect(() => {
     const getMovie = async () => {
       try {
         const res = await axios.get("/movies/find/" + item, {
           headers: {
             token:
-            "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+              "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
           },
         });
         setMovie(res.data);
@@ -28,39 +47,44 @@ export default function ListItem({ index, item }) {
       }
     };
     getMovie();
+    return (() => setMovie({}))
   }, [item]);
 
-  console.log(isHovered)
-
   return (
-    <Link to={{ pathname: "/watch", movie: movie }}>
+    <Link
+      to={{ pathname: "/watch", movie: movie }}
+      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => setIsHovered(true)}
+    >
       <div
         className="listItem"
-        style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        // style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
       >
-        <img src={movie?.img} alt="" />
+        <img src={movie.img} alt="" />
       </div>
-      {isHovered && (
+      {showMovieInfo && (
+        <div className="itemHover">
+          {videoState === 0 &&  <img src={movie.img} alt="" />}
+          <video src={movie.trailer} autoPlay={true} loop muted onLoadedData={(e) => setVideoState(4)}/>
           <div className="itemInfo">
-            <video src={movie.trailer} autoPlay={true} loop />
-            <div className="itemInfo">
-              <div className="icons">
-                <PlayArrow className="icon" />
-                <Add className="icon" />
-                <ThumbUpAltOutlined className="icon" />
-                <ThumbDownOutlined className="icon" />
-              </div>
-              <div className="itemInfoTop">
-                <span>{movie.duration}</span>
-                <span className="limit">+{movie.limit}</span>
-                <span>{movie.year}</span>
-              </div>
-              <div className="genre">{movie.genre}</div>
+            <div className="icons">
+              <PlayArrow className="icon" />
+              <Add className="icon" />
+              <ThumbUpAltOutlined className="icon" />
+              <ThumbDownOutlined className="icon" />
+              <KeyboardArrowDown className="icon" />
             </div>
+            <div className="itemInfoTop">
+              {/* <span>{movie.duration}</span> */}
+              <span className="rating">98% Cocok</span>
+              <span className="limit">+{movie.limit}</span>
+              <span>1 Session</span>
+              <span className="quality">HD</span>
+            </div>
+            <div className="genre">{movie.genre}</div>
           </div>
-        )}
+        </div>
+      )}
     </Link>
   );
 }
