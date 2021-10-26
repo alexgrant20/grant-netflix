@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRef } from "react";
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { ArrowForwardIos } from "@material-ui/icons";
 import "./register.scss";
 
 export default function Register() {
@@ -22,9 +23,11 @@ export default function Register() {
     setPassword(passwordRef.current.value);
     setUsername(usernameRef.current.value);
     try {
-      await axios.post("auth/register", { email,username, password });
+      await axios.post("auth/register", { email, username, password });
       history.push("/login");
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="register">
@@ -35,7 +38,9 @@ export default function Register() {
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
             alt=""
           />
-          <Link className="link loginButton" to="/login">Sign In</Link>
+          <Link className="link loginButton" to="/login">
+            Sign In
+          </Link>
         </div>
       </div>
       <div className="container">
@@ -48,7 +53,7 @@ export default function Register() {
           <div className="input">
             <input type="email" placeholder="email address" ref={emailRef} />
             <button className="registerButton" onClick={handleStart}>
-              Get Started
+              Get Started <ArrowForwardIos />
             </button>
           </div>
         ) : (

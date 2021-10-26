@@ -29,6 +29,7 @@ const useInput = (validation, cl) => {
     onBlurHandler,
     reset,
     inputClass,
+    valueIsValid,
   };
 };
 

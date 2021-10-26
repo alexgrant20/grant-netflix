@@ -36,11 +36,11 @@
     color: white;
 
     form {
-      width: 24vw;
-      min-width: 500px;
+      width: 22vw;
+      min-width: 450px;
       min-height: 75vh;
       max-height: 660px;
-      padding: 60px 90px 100px;
+      padding: 60px 60px 40px;
       border-radius: 5px;
       background-color: rgba(0,0,0,.75);
       display: flex;
@@ -48,7 +48,19 @@
       // justify-content: space-around;
 
       h1{
-        margin-bottom: 40px;
+        margin-bottom: 30px;
+      }
+
+      .error{
+        background: #EB7C03;
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+
+        a{
+          text-decoration: underline;
+        }
       }
     
       .formControl{
@@ -139,6 +151,12 @@
           height: 21px;
           margin-right: 5px;
         }
+
+        a{
+          &:hover{
+            text-decoration: underline;
+          }
+        }
       }
 
       .sideLogin{
@@ -159,9 +177,13 @@
       }
 
       span {
-        color: lightgray;
-        b {
+        color: #737373;
+        a {
           color: white;
+
+          &:hover{
+            text-decoration: underline;
+          }
         }
       }
 

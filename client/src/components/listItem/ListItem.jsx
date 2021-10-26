@@ -30,6 +30,8 @@ export default function ListItem({ index, item }) {
     getMovie();
   }, [item]);
 
+  console.log(isHovered)
+
   return (
     <Link to={{ pathname: "/watch", movie: movie }}>
       <div
@@ -38,9 +40,10 @@ export default function ListItem({ index, item }) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <img src={movie?.imgSm} alt="" />
-        {isHovered && (
-          <>
+        <img src={movie?.img} alt="" />
+      </div>
+      {isHovered && (
+          <div className="itemInfo">
             <video src={movie.trailer} autoPlay={true} loop />
             <div className="itemInfo">
               <div className="icons">
@@ -54,12 +57,10 @@ export default function ListItem({ index, item }) {
                 <span className="limit">+{movie.limit}</span>
                 <span>{movie.year}</span>
               </div>
-              <div className="desc">{movie.desc}</div>
               <div className="genre">{movie.genre}</div>
             </div>
-          </>
+          </div>
         )}
-      </div>
     </Link>
   );
 }
