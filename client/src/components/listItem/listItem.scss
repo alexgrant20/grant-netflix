@@ -6,11 +6,13 @@
   overflow: hidden;
   cursor: pointer;
   color: white;
+  border-radius: 5px;
 
   img {
     width: auto;
     height: 100%;
     object-fit: cover;
+    border-radius: inherit;
   }
 }
 
@@ -19,22 +21,26 @@
   max-width: 440px;
   height: fit-content;
   position: absolute;
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.07);
-  box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.07);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   border-radius: 5px;
   top: 0;
-  bottom: 0;
+  bottom: 0px;
   margin: auto;
   background-color: var(--main-color);
-  animation: zoom .1s linear;
+  animation: zoom .2s linear;
+  border-radius: 10px;
+  z-index: 100;
+
 
   @keyframes zoom {
     0%{
-      transform: scale(0);
+      // transform: scale(0);
+      filter: opacity(0);
     }
     
     100%{
-      transform: scale(1);
+      // transform: scale(1);
+      filter: opacity(1);
     }
   }
 
@@ -42,6 +48,8 @@
     width: 100%;
     height: 240px;
     object-fit: cover;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
   }
 
   img {
@@ -56,8 +64,7 @@
     display: flex;
     flex-direction: column;
     padding: 16px;
-
-
+   
     .icons {
       display: flex;
       margin-bottom: 15px;

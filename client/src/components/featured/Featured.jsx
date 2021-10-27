@@ -5,6 +5,7 @@ import "./featured.scss";
 
 export default function Featured({ type, setGenre }) {
   const [content, setContent] = useState({});
+  const [infoClass, setInfoClass] = useState("info");
 
   useEffect(() => {
     const getRandomContent = async () => {
@@ -12,7 +13,7 @@ export default function Featured({ type, setGenre }) {
         const res = await axios.get(`/movies/random?type=${type}`, {
           headers: {
             token:
-              "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+              "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
           },
         });
         setContent(res.data[0]);
@@ -22,6 +23,12 @@ export default function Featured({ type, setGenre }) {
     };
     getRandomContent();
   }, [type]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setInfoClass("info descNone");
+    }, 8000);
+  }, []);
 
   console.log(content);
   return (
@@ -52,12 +59,17 @@ export default function Featured({ type, setGenre }) {
         </div>
       )}
       <img src={content.imgSm} alt="" />
-      <div className="info">
+      <div className={infoClass}>
         <img src={content.imgTitle} alt="" />
-        <span className="desc">{content.desc}</span>
+        <div className="movieInfo">
+          <span className="promo">Watch Seasson 1 Now</span>
+          <span className="desc">{content.desc}</span>
+        </div>
+      </div>
+      <div className="wrapper">
         <div className="buttons">
           <button className="play">
-            <PlayArrow />
+            <PlayArrow className="icon" />
             <span>Play</span>
           </button>
           <button className="more">
@@ -65,6 +77,7 @@ export default function Featured({ type, setGenre }) {
             <span>Info</span>
           </button>
         </div>
+        <div className="limit">{content.limit}+</div>
       </div>
     </div>
   );

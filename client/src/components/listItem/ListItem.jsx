@@ -24,7 +24,7 @@ export default function ListItem({ index, item }) {
     if(isHovered){
       movieShowTimeout = setTimeout(() => {
         setShowMovieInfo(true)
-      }, 500)
+      }, 600)
     } else{
       clearTimeout(movieShowTimeout)
       setShowMovieInfo(false)
