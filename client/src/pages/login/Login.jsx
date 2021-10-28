@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { login } from "../../authContext/apiCalls";
-import { AuthContext } from "../../authContext/AuthContext";
+import { login } from "../../context/authContext/apiCalls";
+import { AuthContext } from "../../context/authContext/AuthContext";
 import { Link } from "react-router-dom";
 import useInput from "../../hooks/use-inputs";
 import "./login.scss";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
-import { reset } from "../../authContext/AuthActions";
+import { reset } from "../../context/authContext/AuthActions";
 
 export default function Login() {
   const { dispatch, error, isFetching } = useContext(AuthContext);

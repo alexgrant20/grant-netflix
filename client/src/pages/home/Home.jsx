@@ -2,10 +2,13 @@ import Navbar from "../../components/navbar/Navbar";
 import Featured from "../../components/featured/Featured";
 import "./home.scss";
 import List from "../../components/list/List";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import MovieModal from "../../components/movieModal/MovieModal";
+import { ModalContext } from "../../context/modalContext/ModalContext";
 
 const Home = ({ type }) => {
+  const modalCtx = useContext(ModalContext);
   const [lists, setLists] = useState([]);
   const [genre, setGenre] = useState(null);
 
@@ -34,6 +37,7 @@ const Home = ({ type }) => {
   return (
     <div className="home">
       <Navbar />
+      {modalCtx.isOpen && <MovieModal />}
       <Featured type={type} setGenre={setGenre} />
       {lists.map((list, i) => (
         <List list={list} key={i} />

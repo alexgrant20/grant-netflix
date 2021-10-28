@@ -10,7 +10,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import { useContext } from "react";
-import { AuthContext } from "./authContext/AuthContext";
+import { AuthContext } from "./context/authContext/AuthContext";
 
 const App = () => {
   const { user } = useContext(AuthContext);

@@ -7,11 +7,14 @@ import {
   ArrowDownwardOutlined,
   KeyboardArrowDown,
 } from "@material-ui/icons";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { ModalContext } from "../../context/modalContext/ModalContext";
 
 export default function ListItem({ index, item }) {
+  const modalCtx = useContext(ModalContext)
+
   const [isHovered, setIsHovered] = useState(false);
   const [movie, setMovie] = useState({});
   const [showMovieInfo, setShowMovieInfo] = useState(false);
@@ -52,7 +55,7 @@ export default function ListItem({ index, item }) {
 
   return (
     <Link
-      to={{ pathname: "/watch", movie: movie }}
+      to={{ pathname: "/", movie: movie }}
       onMouseLeave={() => setIsHovered(false)}
       onMouseEnter={() => setIsHovered(true)}
     >
@@ -72,7 +75,7 @@ export default function ListItem({ index, item }) {
               <Add className="icon" />
               <ThumbUpAltOutlined className="icon" />
               <ThumbDownOutlined className="icon" />
-              <KeyboardArrowDown className="icon" />
+              <KeyboardArrowDown className="icon" onClick={modalCtx.openModal} />
             </div>
             <div className="itemInfoTop">
               {/* <span>{movie.duration}</span> */}
