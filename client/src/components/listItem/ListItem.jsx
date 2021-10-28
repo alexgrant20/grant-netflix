@@ -9,32 +9,44 @@ import {
 } from "@material-ui/icons";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 
 export default function ListItem({ index, item }) {
-  const modalCtx = useContext(ModalContext)
-
   const [isHovered, setIsHovered] = useState(false);
   const [movie, setMovie] = useState({});
   const [showMovieInfo, setShowMovieInfo] = useState(false);
   const [videoState, setVideoState] = useState(0);
 
+  const history = useHistory();
+
+  const openModalHandler = () => {
+    history.push("/?jbv=" + movie._id);
+    setIsHovered(false);
+  };
+
+  const openMovieHandler = () => {
+    history.push({
+      pathname: "/watch/" + movie._id,
+      movie,
+    });
+  };
+
   let movieShowTimeout;
-  
+
   useEffect(() => {
-    console.log(isHovered)
-    if(isHovered){
+    console.log(isHovered);
+    if (isHovered) {
       movieShowTimeout = setTimeout(() => {
-        setShowMovieInfo(true)
-      }, 600)
-    } else{
-      clearTimeout(movieShowTimeout)
-      setShowMovieInfo(false)
+        setShowMovieInfo(true);
+      }, 600);
+    } else {
+      clearTimeout(movieShowTimeout);
+      setShowMovieInfo(false);
     }
-    return(() => clearTimeout(movieShowTimeout))
-  }, [isHovered])
-  
+    return () => clearTimeout(movieShowTimeout);
+  }, [isHovered]);
+
   useEffect(() => {
     const getMovie = async () => {
       try {
@@ -50,44 +62,56 @@ export default function ListItem({ index, item }) {
       }
     };
     getMovie();
-    return (() => setMovie({}))
+    return () => setMovie({});
   }, [item]);
 
   return (
-    <Link
-      to={{ pathname: "/", movie: movie }}
+    <div
       onMouseLeave={() => setIsHovered(false)}
       onMouseEnter={() => setIsHovered(true)}
+      className="listItemWrapper"
     >
-      <div
-        className="listItem"
-        // style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
-      >
+      <div className="listItem" onClick={openModalHandler}>
         <img src={movie.img} alt="" />
       </div>
-      {showMovieInfo && (
-        <div className="itemHover">
-          {videoState === 0 &&  <img src={movie.img} alt="" />}
-          <video src={movie.trailer} autoPlay={true} loop muted onLoadedData={(e) => setVideoState(4)}/>
-          <div className="itemInfo">
-            <div className="icons">
-              <PlayArrow className="icon" />
-              <Add className="icon" />
-              <ThumbUpAltOutlined className="icon" />
-              <ThumbDownOutlined className="icon" />
-              <KeyboardArrowDown className="icon" onClick={modalCtx.openModal} />
+   
+        {showMovieInfo && (
+          <div className="itemHover">
+            {videoState === 0 && <img src={movie.img} alt="" />}
+            <video
+              src={movie.trailer}
+              autoPlay={true}
+              loop
+              muted
+              onLoadedData={(e) => setVideoState(4)}
+              onClick={openMovieHandler}
+            />
+            <div className="itemInfo">
+              <div className="icons">
+                <PlayArrow className="icon" />
+                <Add className="icon" />
+                <ThumbUpAltOutlined
+                  className="icon"
+                  onClick={() => console.log("Liked")}
+                />
+                <ThumbDownOutlined className="icon" />
+                <KeyboardArrowDown
+                  className="icon"
+                  onClick={openModalHandler}
+                />
+              </div>
+              <div className="itemInfoTop">
+                {/* <span>{movie.duration}</span> */}
+                <span className="rating">98% Cocok</span>
+                <span className="limit">+{movie.limit}</span>
+                <span>1 Session</span>
+                <span className="quality">HD</span>
+              </div>
+              <div className="genre">{movie.genre}</div>
             </div>
-            <div className="itemInfoTop">
-              {/* <span>{movie.duration}</span> */}
-              <span className="rating">98% Cocok</span>
-              <span className="limit">+{movie.limit}</span>
-              <span>1 Session</span>
-              <span className="quality">HD</span>
-            </div>
-            <div className="genre">{movie.genre}</div>
           </div>
-        </div>
-      )}
-    </Link>
+        )}
+      </div>
+
   );
 }

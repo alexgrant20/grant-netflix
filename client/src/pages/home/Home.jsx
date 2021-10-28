@@ -6,11 +6,14 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import MovieModal from "../../components/movieModal/MovieModal";
 import { ModalContext } from "../../context/modalContext/ModalContext";
+import { useLocation } from "react-router";
 
 const Home = ({ type }) => {
-  const modalCtx = useContext(ModalContext);
   const [lists, setLists] = useState([]);
   const [genre, setGenre] = useState(null);
+  const {search} = useLocation();
+  const query = new URLSearchParams(search)
+  const movieId = query.get('jbv')
 
   useEffect(() => {
     const getRandomLists = async () => {
@@ -37,7 +40,7 @@ const Home = ({ type }) => {
   return (
     <div className="home">
       <Navbar />
-      {modalCtx.isOpen && <MovieModal />}
+      {movieId && <MovieModal movieId={movieId}/>}
       <Featured type={type} setGenre={setGenre} />
       {lists.map((list, i) => (
         <List list={list} key={i} />

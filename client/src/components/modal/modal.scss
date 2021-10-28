@@ -1,24 +1,38 @@
-.backdrop{
-    background-color: #0000008e;
-    z-index: 31;
-    display: block;
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
+.backdrop {
+  background-color: #0000008e;
+  z-index: 31;
+  display: block;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
-.modal{
-    position: fixed;
-    top: 30px;
-    left: 0;
-    right: 0;
-    width: 50%;
-    display: flex;
-    background-color: #fff;
-    border-radius: 10px;
-    margin: auto;
-    z-index: 33;
-    height: fit-content;
-}
+.modal {
+  position: fixed;
+  top: 30px;
+  left: 0;
+  right: 0;
+  width: 50%;
+  display: flex;
+  background-color: #fff;
+  border-radius: 10px;
+  margin: auto;
+  z-index: 33;
+  height: fit-content;
+  animation: pop 0.5s ease-in-out;
 
+  @keyframes pop {
+    0% {
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+}

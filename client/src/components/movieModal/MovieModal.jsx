@@ -10,12 +10,17 @@ import {
 } from "@material-ui/icons";
 import { useContext } from "react";
 import { ModalContext } from "../../context/modalContext/ModalContext";
+import { useHistory } from "react-router";
 
 const MovieModal = () => {
-  const modalCtx = useContext(ModalContext)
+  const history = useHistory();
+
+  const closeModalHandler = () => {
+    history.push("/");
+  }
 
   return (
-    <Modal>
+    <Modal onClick={closeModalHandler}>
       <div className="movieModal">
         <div className="header">
           <img
@@ -23,7 +28,7 @@ const MovieModal = () => {
             src="https://occ-0-58-325.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABVCFrj9i1lHdbEYVDlAIFWn7OvXx61Z5RZpYfhwPDQKmkWNFLJFejazZe8pHwwTNxtjcKZPtTQlrOsOeFs9DOoUK39r_.webp?r=3e9"
             alt=""
           />
-          <div className="close" onClick={modalCtx.closeModal}>
+          <div className="close" onClick={closeModalHandler}>
             <svg viewBox="0 0 24 24">
               <path
                 d="M12 10.586l7.293-7.293 1.414 1.414L13.414 12l7.293 7.293-1.414 1.414L12 13.414l-7.293 7.293-1.414-1.414L10.586 12 3.293 4.707l1.414-1.414L12 10.586z"
